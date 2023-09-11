@@ -24,6 +24,9 @@ jobs:
         run: |
           git checkout -b test001
           git push -f origin test001
+          
+      - name: Install @octokit/rest
+        run: npm install @octokit/rest
 
       - name: Create Pull Request
         uses: actions/github-script@v6
