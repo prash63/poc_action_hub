@@ -23,7 +23,7 @@ jobs:
       - name: Create and push feature branch
         run: |
           git checkout -b test001
-          git push origin test001
+          git push -f origin test001
 
       - name: Create Pull Request
         uses: actions/github-script@v6
