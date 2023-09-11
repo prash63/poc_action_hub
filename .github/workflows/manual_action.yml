@@ -30,14 +30,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const github = context.github;
+            const { context, getOctokit } = require('@actions/github');
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const base = 'release'; // Set your release branch name
             const head = 'test001'; // Set your feature branch name
             const title = 'Feature: My New Feature'; // Set your PR title
+            
+            const octokit = getOctokit("${{ secrets.GITHUB_TOKEN }}");
 
-            const response = await github.pulls.create({
+            const response = await octokit.pulls.create({
               owner,
               repo,
               title,
