@@ -42,13 +42,14 @@ jobs:
             const head = 'test001'; // Set your feature branch name
             const title = 'Feature: My New Feature'; // Set your PR title
             
+            import fetch from 'node-fetch'; // Use import syntax
+
             const { Octokit } = require('@octokit/rest');
-            const fetchModule = require('node-fetch'); // Import node-fetch for the fetch implementation
 
             const octokit = new Octokit({
               auth: "${{ secrets.GITHUB_TOKEN }}",
               request: {
-                fetch: fetchModule,
+                fetch: fetch,
               },
             });
 
