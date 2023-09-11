@@ -36,7 +36,12 @@ jobs:
             const head = 'test001'; // Set your feature branch name
             const title = 'Feature: My New Feature'; // Set your PR title
             
-            const octokit = getOctokit("${{ secrets.GITHUB_TOKEN }}");
+            const octokit = new (require("@octokit/rest"))();
+            
+            octokit.authenticate({
+              type: "token",
+              token: "${{ secrets.GITHUB_TOKEN }}",
+            });
 
             const response = await octokit.pulls.create({
               owner,
