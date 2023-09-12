@@ -23,7 +23,7 @@ jobs:
         PR_TITLE="${{ github.event.inputs.pr_title }}"
         
         echo "PR Title: $PR_TITLE"
-        if [[ ! "$PR_TITLE" =~ ^(feature/MATE-|hotfix/MATE-|release/MATE-|docs/MATE-|test/MATE-|issue/MATE-|bugfix/MATE-)(?=.{17,80}$).* ]]; then
+        if [[ ! "$PR_TITLE" =~ ^(feature/MATE-|hotfix/MATE-|release/MATE-|docs/MATE-|test/MATE-|issue/MATE-|bugfix/MATE-).* ]]; then
           echo "Error: Invalid PR title. Please follow the specified format."
           exit 1
         fi
