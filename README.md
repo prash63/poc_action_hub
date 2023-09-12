@@ -1,2 +1,2 @@
 # poc_action_hub
-This is to test manual Github action
+This is to test manual Github action (create PR script)
