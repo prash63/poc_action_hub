@@ -41,8 +41,11 @@ jobs:
         
         # Custom regex pattern
         pattern='^(?i)((feature|MATE-|hotfix|MATE-|release|MATE-|docs|MATE-|test|MATE-|issue|MATE-|bugfix|MATE-)[\w.-]{16,79})$'
-    
-        if [[ ! "$PR_TITLE" =~ $pattern ]]; then
+
+        echo "PR Title: $PR_TITLE"
+        if [[ "$PR_TITLE" =~ $pattern ]]; then
+          echo "PR Title matches the pattern."
+        else
           echo "Error: Invalid PR title. Please follow the specified format."
           exit 1
         fi
