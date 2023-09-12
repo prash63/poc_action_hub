@@ -10,7 +10,7 @@ on:
         required: true
 
 jobs:
-  create-pull-request:
+  create-and-merge-pull-request:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,10 @@ jobs:
 
     - name: Verify Feature Branch
       run: |
+        # Fetch the latest information about remote branches
         git fetch --all
+        
+        # List all branches
         git branch -a
         
         # Get input values
@@ -30,6 +33,16 @@ jobs:
           echo "Error: Feature branch '$FEATURE_BRANCH' does not exist."
           exit 1
         fi
+
+    - name: PR Title Check
+      uses: deepakputhraya/action-pr-title@master
+      with:
+        regex: '[a-zA-Z]+\/\w+(\-|\.)\S+\s{1}\S*' # Regex the title should match.
+        allowed_prefixes: 'feature/MATE-,hotfix/MATE-,release/MATE-,docs/MATE-,test/MATE-,issue/MATE-,bugfix/MATE-' # title should start with the given prefix
+        disallowed_prefixes: 'fix,bug' # title should not start with the given prefix
+        prefix_case_sensitive: false # title prefix are case insensitive
+        min_length: 17 # Min length of the title
+        max_length: 80 # Max length of the title
 
     - name: Create Pull Request
       run: |
