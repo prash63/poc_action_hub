@@ -35,15 +35,18 @@ jobs:
         # fi
 
     - name: PR Title Check
-      uses: deepakputhraya/action-pr-title@master
-      with:
-        regex: '[a-zA-Z]+\/\w+(\-|\.)\S+\s{1}\S*' # Regex the title should match.
-        allowed_prefixes: 'feature/MATE-,hotfix/MATE-,release/MATE-,docs/MATE-,test/MATE-,issue/MATE-,bugfix/MATE-' # title should start with the given prefix
-        disallowed_prefixes: 'fix,bug' # title should not start with the given prefix
-        prefix_case_sensitive: false # title prefix are case insensitive
-        min_length: 17 # Min length of the title
-        max_length: 80 # Max length of the title
-
+      run: |
+        # Pull request title
+        PR_TITLE="${{ github.event.pull_request.title }}"
+        
+        # Custom regex pattern
+        pattern='^(?i)((feature|MATE-|hotfix|MATE-|release|MATE-|docs|MATE-|test|MATE-|issue|MATE-|bugfix|MATE-)[\w.-]{16,79})$'
+    
+        if [[ ! "$PR_TITLE" =~ $pattern ]]; then
+          echo "Error: Invalid PR title. Please follow the specified format."
+          exit 1
+        fi
+        
     - name: Create Pull Request
       run: |
         FEATURE_BRANCH="${{ github.event.inputs.feature_branch }}"
