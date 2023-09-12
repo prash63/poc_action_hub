@@ -1,0 +1,35 @@
+name: Create Pull Request
+on:
+  workflow_dispatch:
+    inputs:
+      feature_branch:
+        description: 'Feature branch name'
+        required: true
+      pr_title:
+        description: 'Pull request title'
+        required: true
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Create Pull Request
+      run: |
+        FEATURE_BRANCH="${{ github.event.inputs.feature_branch }}"
+        PR_TITLE="${{ github.event.inputs.pr_title }}"
+        
+        # Create a new branch from the feature branch
+        git checkout -b "$FEATURE_BRANCH"
+        
+        # Push the changes to the feature branch
+        git push origin "$FEATURE_BRANCH"
+        
+        # Create the pull request
+        gh pr create --base "release" --head "$FEATURE_BRANCH" --title "$PR_TITLE" --body "This pull request was created automatically by a GitHub Action."
+
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
