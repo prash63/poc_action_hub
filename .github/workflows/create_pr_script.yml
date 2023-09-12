@@ -16,11 +16,16 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
+      
+    - name: Check GitHub CLI Version
+      run: gh --version
 
     - name: Create Pull Request
       run: |
         FEATURE_BRANCH="${{ github.event.inputs.feature_branch }}"
         PR_TITLE="${{ github.event.inputs.pr_title }}"
+        
+        git branch -a
         
         git checkout "$FEATURE_BRANCH"
         
