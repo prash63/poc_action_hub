@@ -1,4 +1,4 @@
-name: Simple Pull Request
+name: Create PR
 
 on:
   workflow_dispatch:
@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create Pull Request
-        uses: actions/github-script@v5
+        uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.event.inputs.feature_branch }}
