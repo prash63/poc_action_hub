@@ -37,7 +37,7 @@ jobs:
     - name: PR Title Check
       run: |
         # Pull request title
-        PR_TITLE="${{ github.event.pull_request.pr_title }}"
+        PR_TITLE="${{ github.event.inputs.pr_title }}"
         
         # Custom regex pattern
         pattern='^(?i)((feature|MATE-|hotfix|MATE-|release|MATE-|docs|MATE-|test|MATE-|issue|MATE-|bugfix|MATE-)[\w.-]{16,79})$'
