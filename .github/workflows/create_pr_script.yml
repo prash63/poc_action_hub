@@ -17,13 +17,24 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v2
 
+    - name: Verify Feature Branch
+      run: |
+        git fetch --all
+        git branch -a
+        
+        # Get input values
+        FEATURE_BRANCH="${{ github.event.inputs.feature_branch }}"
+        
+        # Check if the feature branch exists 
+        if ! git show-ref --verify --quiet "refs/heads/$FEATURE_BRANCH"; then
+          echo "Error: Feature branch '$FEATURE_BRANCH' does not exist."
+          exit 1
+        fi
+
     - name: Create Pull Request
       run: |
         FEATURE_BRANCH="${{ github.event.inputs.feature_branch }}"
         PR_TITLE="${{ github.event.inputs.pr_title }}"
-        
-        git fetch --all
-        git branch -a
         
         git checkout "$FEATURE_BRANCH"
         
