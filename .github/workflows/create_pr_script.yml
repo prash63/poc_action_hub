@@ -39,13 +39,8 @@ jobs:
         # Pull request title
         PR_TITLE="${{ github.event.inputs.pr_title }}"
         
-        # Custom regex pattern
-        pattern='^(?i)((feature|MATE-|hotfix|MATE-|release|MATE-|docs|MATE-|test|MATE-|issue|MATE-|bugfix|MATE-)[\w.-]{16,79})$'
-
         echo "PR Title: $PR_TITLE"
-        if [[ "$PR_TITLE" =~ $pattern ]]; then
-          echo "PR Title matches the pattern."
-        else
+        if [[ ! "$PR_TITLE" =~ ^(feature/MATE-|hotfix/MATE-|release/MATE-|docs/MATE-|test/MATE-|issue/MATE-|bugfix/MATE-).* ]]; then
           echo "Error: Invalid PR title. Please follow the specified format."
           exit 1
         fi
