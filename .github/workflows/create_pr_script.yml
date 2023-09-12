@@ -24,14 +24,11 @@ jobs:
         
         git checkout "$FEATURE_BRANCH"
         
-        # Pull the latest changes from the remote feature branch
-        git pull origin "$FEATURE_BRANCH"
-        
         # Push the changes to the feature branch
         git push origin "$FEATURE_BRANCH"
         
         # Create the pull request
-        gh pr create --base "release" --head "$FEATURE_BRANCH" --title "$PR_TITLE" --body "This pull request was created automatically by a GitHub Action."
-
+        gh pr create --base release --head "$FEATURE_BRANCH" --title "$PR_TITLE" --body "This pull request was created automatically by a GitHub Action."
+     
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
