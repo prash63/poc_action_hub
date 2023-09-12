@@ -1,4 +1,4 @@
-name: Create Pull Request Script
+name: Create and Merge Pull Request
 on:
   workflow_dispatch:
     inputs:
