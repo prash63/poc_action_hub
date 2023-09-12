@@ -50,6 +50,9 @@ jobs:
         FEATURE_BRANCH="${{ github.event.inputs.feature_branch }}"
         PR_TITLE="${{ github.event.inputs.pr_title }}"
         
+        git fetch --all
+        git branch -a
+        
         git checkout "$FEATURE_BRANCH"
         
         # Push the changes to the feature branch
