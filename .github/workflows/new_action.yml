@@ -1,0 +1,38 @@
+name: Manual Pull Request - 2
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature-branch:
+        description: 'Feature branch name'
+        required: true
+      release-branch:
+        description: 'Release branch name'
+        required: true
+      pr-title:
+        description: 'Pull Request title'
+        required: true
+
+jobs:
+  create_pull_request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FEATURE_BRANCH: ${{ github.event.inputs.feature-branch }}
+          RELEASE_BRANCH: ${{ github.event.inputs.release-branch }}
+          PR_TITLE: ${{ github.event.inputs.pr-title }}
+        run: node create-pull-request.js

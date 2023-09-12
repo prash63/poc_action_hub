@@ -1,0 +1,30 @@
+name: Create PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_branch:
+        description: 'Feature branch name'
+        required: true
+      release_branch:
+        description: 'Release branch name'
+        required: true
+      pr_title:
+        description: 'Pull Request title'
+        required: true
+
+jobs:
+  create_pull_request:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.event.inputs.feature_branch }}
+          title: ${{ github.event.inputs.pr_title }}
+          body: This pull request was created automatically by a GitHub Action.
