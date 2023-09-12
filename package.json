@@ -1,8 +1,0 @@
-{
-  "name": "main",
-  "version": "1.0.0",
-  "description": "Description of your project",
-  "dependencies": {
-    "@octokit/rest": "^18.0.1"
-  }
-}
