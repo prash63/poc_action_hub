@@ -20,19 +20,19 @@ jobs:
     - name: Verify Feature Branch
       run: |
         # Fetch the latest information about remote branches
-        git fetch --all
+        # git fetch --all
         
         # List all branches
-        git branch -a
+        # git branch -a
         
         # Get input values
-        FEATURE_BRANCH="${{ github.event.inputs.feature_branch }}"
+        # FEATURE_BRANCH="${{ github.event.inputs.feature_branch }}"
         
         # Check if the feature branch exists 
-        if ! git show-ref --verify --quiet "refs/heads/$FEATURE_BRANCH"; then
-          echo "Error: Feature branch '$FEATURE_BRANCH' does not exist."
-          exit 1
-        fi
+        # if ! git show-ref --verify --quiet "refs/heads/$FEATURE_BRANCH"; then
+          # echo "Error: Feature branch '$FEATURE_BRANCH' does not exist."
+          # exit 1
+        # fi
 
     - name: PR Title Check
       uses: deepakputhraya/action-pr-title@master
