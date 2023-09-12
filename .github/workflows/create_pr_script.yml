@@ -25,6 +25,9 @@ jobs:
         # Create a new branch from the feature branch
         git checkout -b "$FEATURE_BRANCH"
         
+        # Pull the latest changes from the remote feature branch
+        git pull origin "$FEATURE_BRANCH"
+        
         # Push the changes to the feature branch
         git push origin "$FEATURE_BRANCH"
         
