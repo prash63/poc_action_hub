@@ -22,8 +22,7 @@ jobs:
         FEATURE_BRANCH="${{ github.event.inputs.feature_branch }}"
         PR_TITLE="${{ github.event.inputs.pr_title }}"
         
-        # Create a new branch from the feature branch
-        git checkout -b "$FEATURE_BRANCH"
+        git checkout "$FEATURE_BRANCH"
         
         # Pull the latest changes from the remote feature branch
         git pull origin "$FEATURE_BRANCH"
