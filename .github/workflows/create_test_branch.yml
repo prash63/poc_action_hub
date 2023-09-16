@@ -18,7 +18,7 @@ jobs:
     - name: Verify Feature Branch
       run: |
         feature_branch="${{ github.event.inputs.feature_branch }}"
-        git fetch --all -p
+        git fetch --all
         
         if ! git show-ref --verify --quiet "refs/heads/$feature_branch"; then
           echo "Error: Feature branch $feature_branch does not exist."
@@ -30,19 +30,19 @@ jobs:
         feature_branch="${{ github.event.inputs.feature_branch }}"
         test_branch="test/${feature_branch#feature/}" # Remove "feature/" prefix
 
-        git checkout $feature_branch
-        git checkout -b $test_branch
-        # git push origin $test_branch
+        git checkout "$feature_branch"
+        git checkout -b "$test_branch"
+        # git push origin "$test_branch"
 
     - name: Merge Latest Release Commit
       run: |
         feature_branch="${{ github.event.inputs.feature_branch }}"
         release_branch="release"
         
-        git fetch origin $release_branch
-        git checkout $test_branch
+        git fetch origin "$release_branch"
+        git checkout "$test_branch"
         git merge --no-ff origin/$release_branch -m "Merge latest release into $test_branch"
-        git push origin $test_branch
+        git push origin "$test_branch"
 
     - name: Complete
       run: echo "Test branch created and latest release merged successfully."
