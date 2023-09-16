@@ -1,0 +1,37 @@
+name: Create Test Branch and Merge Latest Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_branch:
+        description: 'Feature branch name'
+        required: true
+
+jobs:
+  create-merge-test-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Create Test Branch
+      run: |
+        feature_branch="${{ github.event.inputs.feature_branch }}"
+        test_branch="test/${feature_branch#feature/}" # Remove "feature/" prefix
+
+        git checkout -b $test_branch
+        # git push origin $test_branch
+
+    - name: Merge Latest Release Commit
+      run: |
+        feature_branch="${{ github.event.inputs.feature_branch }}"
+        release_branch="release"
+        
+        git fetch origin $release_branch
+        git checkout $test_branch
+        git merge --no-ff origin/$release_branch -m "Merge latest release into $test_branch"
+        git push origin $test_branch
+
+    - name: Complete
+      run: echo "Test branch created and latest release merged successfully."
