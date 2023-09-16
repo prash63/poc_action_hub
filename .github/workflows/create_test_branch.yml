@@ -20,6 +20,7 @@ jobs:
         feature_branch="${{ github.event.inputs.feature_branch }}"
         test_branch="test/${feature_branch#feature/}" # Remove "feature/" prefix
 
+        git checkout $feature_branch
         git checkout -b $test_branch
         # git push origin $test_branch
 
