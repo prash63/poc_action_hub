@@ -15,6 +15,15 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
+    - name: Verify Feature Branch
+      run: |
+        feature_branch="${{ github.event.inputs.feature_branch }}"
+        
+        if ! git show-ref --verify --quiet "refs/heads/$feature_branch"; then
+          echo "Error: Feature branch $feature_branch does not exist."
+          exit 1
+        fi   
+
     - name: Create Test Branch
       run: |
         feature_branch="${{ github.event.inputs.feature_branch }}"
