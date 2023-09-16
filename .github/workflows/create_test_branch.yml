@@ -18,7 +18,7 @@ jobs:
     - name: Verify Feature Branch
       run: |
         feature_branch="${{ github.event.inputs.feature_branch }}"
-        git fetch --all
+        git fetch --all -p
         
         if ! git show-ref --verify --quiet "refs/heads/$feature_branch"; then
           echo "Error: Feature branch $feature_branch does not exist."
